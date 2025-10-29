@@ -26,9 +26,9 @@ function App() {
 
   // if (!token) {
   // }
-  // return <Login onLoginSuccess={handleLoginSuccess} />;
+  return <Login onLoginSuccess={handleLoginSuccess} />;
 
-  return <ImageInput /> 
+  // return <ImageInput /> 
 }
 
 export default App;
