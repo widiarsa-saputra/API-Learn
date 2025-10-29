@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+.login-btn {
+    background: linear-gradient(to right, #002d74 0%, #002d74 50%, #2b7bfa 50%, #2b7bfa 100%);
+    background-size: 200% 100%;
+    background-position: right center;
+    transition: background-position 0.3s ease-in-out;
+}
+
+.sec-btn {
+    background: linear-gradient(to right, cyan 0%, cyan 50%, #2b7bfa 50%, #2b7bfa 100%);
+    background-size: 200% 100%;
+    background-position: right center;
+    color: white;
+    transition: background-position 0.3s ease-in-out, color 0.3s ease;
+}
+
+.login-btn:not(:disabled):hover{
+    background-position: left center;
+}
+.sec-btn:not(:disabled):hover{
+    background-position: left center;
+    color: #002d74;
+}
+
+.login-btn.active {
+    background-position: left center;
+    color: #f2f2f2;
+}
