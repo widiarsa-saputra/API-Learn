@@ -23,14 +23,16 @@ export async function getPosts(params = {}) {
 }
 
 export async function addPost(formData, id) {
+
+    const url = `https://api.gotra.my.id/api/v1/post${id? `/${id}` : ''}`;
+    
     try {
         const response = await axios.post(
-            `https://api.gotra.my.id/api/v1/post/${id ? id : ''}`,
+            url,
             formData,
             {
                 headers: {
                     "Authorization": token,
-                    "Content-type": `${!id ? 'application/json' : 'multipart/form-data'}`,
                     "Accept": "application/json"
                 }
             }

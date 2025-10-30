@@ -74,8 +74,8 @@ function PostsAdmin() {
             setModal(true);
         } catch (err) {
             setModal(true);
+            setImgUrl('');
             console.error("Handle Submit Error: ", err);
-            console.error("Response dari server:", err.response?.data);
         }
     }
 
@@ -133,16 +133,19 @@ function PostsAdmin() {
     }
 
     function handleImageChange(data) {
-        console.log({
-            test: data.file
-        });
+        // console.log({
+        //     test: data.file
+        // });
         setSelectedImage(data.file);
+        console.log({
+            image: data.file
+        })
         setIsImgChange(data.change);
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log({ selectedImage });
+        // console.log({ selectedImage });
         if (!selectedImage && isAdd) {
             alert("Add image First!");
             return;

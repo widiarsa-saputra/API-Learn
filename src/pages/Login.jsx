@@ -57,7 +57,7 @@ function Login({ onLoginSuccess }) {
                     </p>
                 </div>
                 <div className="w-1/2 bg-[#1b1b32] flex items-center justify-center">
-                    <img src='../public/revision-history.svg' />
+                    <img src='https://api.gotra.my.id/uploads/posts/post-1761834520-tzEx.png' />
                 </div>
             </section>
         </>

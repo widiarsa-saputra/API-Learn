@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 
 function StatusModal({ status, msg, isOpen, onClose, ask, action }) {
     const [enter, setEnter] = useState(false);
-    console.log({
-        status, msg, isOpen, onClose, ask, action
-    })
 
     useEffect(() => {
         const handleKeyDown = (e) => {
