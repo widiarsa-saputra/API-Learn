@@ -2,14 +2,14 @@ import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import Post from './Post.jsx'
-import PostsAdmin from './PostsAdmin.jsx'
+import Post from './pages/Post.jsx'
+import PostsAdmin from './pages/PostsAdmin.jsx'
 import NotFoundPage from './NotFoundPage.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PostDetail from './PostDetail.jsx';
 import UserPage from './UserPage.jsx'
-import Labels from './Labels.jsx'
-import Categories from './Categories.jsx'
+import Labels from './pages/Labels.jsx'
+import Categories from './pages/Categories.jsx'
 
 
 const router = createBrowserRouter([

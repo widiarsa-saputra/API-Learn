@@ -8,7 +8,7 @@ function ImageUploader({ onImageChange, currentImg }) {
         if (acceptedFiles && acceptedFiles.length > 0) {
             const file = acceptedFiles[0];
             const previewUrl = URL.createObjectURL(file);
-            console.log(file)
+            
             setPreview(previewUrl);
 
             onImageChange({
@@ -39,21 +39,6 @@ function ImageUploader({ onImageChange, currentImg }) {
         }
     }, [currentImg])
 
-    // function handleFileChange(e) {
-    //     const file = e.target.files[0];
-    //     console.log(file);
-    //     if (file) {
-    //         const previewURL = URL.createObjectURL(file);
-    //         setPreview(previewURL);
-
-    //         onImageChange({
-    //             file,
-    //             preview: previewURL,
-    //             change: true
-    //         });
-    //     }
-    // }
-
     return (
         <div
             {...getRootProps()}
@@ -67,8 +52,8 @@ function ImageUploader({ onImageChange, currentImg }) {
                 className="hidden"
             />
 
-            <label
-                htmlFor="img-input"
+            <div
+                // htmlFor="img-input"
                 className={`absolute inset-0 flex justify-center items-center rounded-xs cursor-pointer overflow-hidden ${isDragActive ? "bg-green-100 border-2 border-dashed" : "bg-[#e0e0e0]"}`}
             >
                 {preview ? (
@@ -82,7 +67,7 @@ function ImageUploader({ onImageChange, currentImg }) {
                         {isDragActive ? "Drop it like it's hot" : "Drag and drop your image's here"}
                     </span>
                 )}
-            </label>
+            </div>
         </div>
 
 

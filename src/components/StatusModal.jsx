@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 
 function StatusModal({ status, msg, isOpen, onClose, ask, action }) {
     const [enter, setEnter] = useState(false);
+    console.log({
+        status, msg, isOpen, onClose, ask, action
+    })
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === "Enter") {
-                console.log('test');
                 setTimeout(() => {
                     onClose(true);
                 }, 500)
@@ -71,7 +73,7 @@ function StatusModal({ status, msg, isOpen, onClose, ask, action }) {
                         {!ask ? (
                             <button
                                 onClick={() => onClose()}
-                                className={`${!enter ? color : hoverColor} hover:${hoverColor} text-white rounded-lg px-5 py-2.5 w-full`}
+                                className={`${!enter ? color : hoverColor} hover:${hoverColor} cursor-pointer text-white rounded-lg px-5 py-2.5 w-full`}
                             >
                                 Ok
                             </button>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Post from "./Post";
+import Post from "./pages/Post";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from './Logout';
+import { logout } from './services/logout';
 
 function UserPage() {
     const token = `Bearer ${localStorage.getItem("token")}`;
@@ -11,7 +11,7 @@ function UserPage() {
 
     async function handleLogout() {
         try {
-            const res = await logoutUser();
+            const res = await logout();
             alert(res.message);
             navigate('/');
         } catch (err) {

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { logoutUser } from "../Logout";
+import { logout } from "../services/logout";
 import StatusModal from "./StatusModal";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 function NavBar() {
     const [modal, setModal] = useState(false);
     const [data, setData] = useState({});
+
     const navigate = useNavigate();
+    const path = useLocation().pathname;
 
     useEffect(() => {
         if (!localStorage.getItem('token')) {
@@ -18,7 +20,7 @@ function NavBar() {
     async function handleLogout(out) {
         setModal(false);
         if (out) {
-            const response = await logoutUser();
+            const response = await logout();
             console.log(response)
             setData(response);
         }
@@ -55,18 +57,30 @@ function NavBar() {
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                             <li>
-                                <a href="posts" className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Posts</a>
+                                <a
+                                    href="/posts"
+                                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 ${path === '/posts' ? 'text-blue-700' : 'text-white'}`}
+                                >Posts</a>
                             </li>
                             <li>
-                                <a href="/admin" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                <a
+                                    href="/admin"
+                                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 ${path === '/admin' ? 'text-blue-700' : 'text-white'}`}
                                 >Posts Admin</a>
                             </li>
                             <li>
-                                <a href="/labels" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Labels</a>
+                                <a
+                                    href="/category"
+                                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 ${path === '/category' ? 'text-blue-700' : 'text-white'}`}
+                                >Category</a>
                             </li>
                             <li>
-                                <a href="/category" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Category</a>
+                                <a
+                                    href="/labels"
+                                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 ${path === '/labels' ? 'text-blue-700' : 'text-white'}`}
+                                >Labels</a>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>

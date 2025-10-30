@@ -1,48 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios";
-import FormComponent from "./components/FormComponent";
-import StatusModal from "./components/StatusModal";
+import FormComponent from "../components/FormComponent";
+import StatusModal from "../components/StatusModal";
 import { useNavigate, } from "react-router-dom";
+import { login } from "../services/login";
 
 function Login({ onLoginSuccess }) {
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
-    const [data, setData] = useState({})
-    // const [isActive, setIsActive] = useState(false);
+    const [data, setData] = useState({});
 
-    // function handleLogin() {
-    //     setIsActive(true);
-    //     postUserAccount();
-    // }
-
-    async function postUserAccount(data) {
+    async function postUserAccount(form) {
         try {
-            const response = await axios.post(
-                "https://api.gotra.my.id/api/v1/login",
-                {
-                    email: data.email,
-                    password: data.password,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    responseType: "json",
-                }
-            );
-            setModal(true);
-            setData(response.data);
-            onLoginSuccess((response.data));
-            return response.data;
-        } catch (error) {
-            setModal(true);
-            setData(error.response.data)
-            console.error("Login gagal:", error.response.data.success);
-            return Promise.reject(error);
+            console.log({form})
+            const res = await login(form);
+            console.log({ res });
 
+            setModal(true);
+            setData(res);
+            onLoginSuccess(res);
+        } catch (err) {
+            setData(err.response.data);
         }
     }
 
@@ -59,7 +36,7 @@ function Login({ onLoginSuccess }) {
             {modal
                 ? <StatusModal
                     isOpen={modal}
-                    onClose={loginSucceed} 
+                    onClose={loginSucceed}
                     msg={data?.message}
                     status={data?.success}
                     ask={false}

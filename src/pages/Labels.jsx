@@ -2,22 +2,21 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ImageUploader from "./ImageUploader";
-import { logoutUser } from './Logout';
-import StatusModal from "./components/StatusModal";
-import ImageModal from "./components/ImageModal"
-import NavBar from "./components/NavBar";
+import ImageUploader from "../ImageUploader";
 
-function Categories() {
+import StatusModal from "../components/StatusModal";
+import ImageModal from "../components/ImageModal"
+import NavBar from "../components/NavBar";
+
+function Labels() {
     const navigate = useNavigate();
-    const [data, setData] = useState({});
     const token = `Bearer ${localStorage.getItem('token')}`;
 
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             navigate('/')
         }
-    }, [navigate, data])
+    }, [navigate])
 
     const [posts, setPosts] = useState(null);
     const [isAdd, setIsAdd] = useState(false);
@@ -27,7 +26,6 @@ function Categories() {
     const [change, setChange] = useState(null);
     const [idPost, setIdPost] = useState('');
     const [imgUrl, setImgUrl] = useState('');
-    const [modal, setModal] = useState(false);
     const [showImage, setShowImage] = useState(false);
     const [page, setPage] = useState(1);
     const [selected, setSelected] = useState(10)
@@ -37,9 +35,9 @@ function Categories() {
         try {
             const formData = new FormData();
             formData.append("name", title);
-            formData.append("description", content);
+            formData.append("color", content);
             const response = await axios.post(
-                'https://api.gotra.my.id/api/v1/category',
+                'https://api.gotra.my.id/api/v1/label',
                 formData,
                 {
                     headers: {
@@ -71,7 +69,7 @@ function Categories() {
     async function deletePost(id) {
         try {
             const response = await axios.delete(
-                `https://api.gotra.my.id/api/v1/category/${id}`,
+                `https://api.gotra.my.id/api/v1/label/${id}`,
                 {
                     headers: {
                         'Authorization': token,
@@ -90,7 +88,7 @@ function Categories() {
         async function getPosts() {
             try {
                 const response = await axios.get(
-                    'https://api.gotra.my.id/api/v1/category',
+                    'https://api.gotra.my.id/api/v1/label',
                     {
                         headers: {
                             'Authorization': token,
@@ -116,9 +114,9 @@ function Categories() {
             const formData = new FormData();
             formData.append("_method", "PUT");
             formData.append("name", title);
-            formData.append("description", content);
+            formData.append("color", content);
             const response = await axios.post(
-                `https://api.gotra.my.id/api/v1/category/${idPost}`,
+                `https://api.gotra.my.id/api/v1/label/${idPost}`,
                 formData,
                 {
                     headers: {
@@ -143,7 +141,7 @@ function Categories() {
         setIsAdd(false)
         setIsEdit(currentPost.id);
         setTitle(currentPost.name);
-        setContent(currentPost.description);
+        setContent(currentPost.color);
         setIdPost(currentPost.id);
     }
 
@@ -155,15 +153,6 @@ function Categories() {
         setIsEdit(false);
     }
 
-    async function handleLogout(out) {
-        setModal(false);
-        if (out) {
-            const response = await logoutUser();
-            setData(response);
-            setModal(true);
-        }
-
-    }
 
     function showImageModal(url, title, open) {
         setImgUrl(url);
@@ -178,16 +167,6 @@ function Categories() {
 
     return (
         <>
-            {modal
-                ? <StatusModal
-                    isOpen={modal}
-                    onClose={handleLogout}
-                    msg={data?.message}
-                    status={data?.success}
-                    ask={true}
-                    action={'Logout'}
-                />
-                : ''}
             {showImage
                 ? <ImageModal
                     url={imgUrl}
@@ -203,10 +182,6 @@ function Categories() {
                     <div className="flex justify-end gap-4 w-1/4">
                         <button
                             className="cursor-pointer text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2 md:px-5 md:py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={addToggle}>Add Label</button>
-                        <button className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 text-sm px-3 py-2 md:px-5 md:py-2.5"
-                            onClick={() => setModal(true)}>Log out</button>
-                        <button className="cursor-pointer text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 text-sm px-3 py-2 md:px-5 md:py-2.5"
-                            onClick={() => navigate('/posts')}>Posts</button>
                     </div>
                 </div>
                 <div className="flex justify-center mt-5">
@@ -214,9 +189,17 @@ function Categories() {
                         ? <form className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-3" onSubmit={handleSubmit}>
                             <div className="md:w-full px-8 flex flex-col gap-4 h-full w-full mt-8">
                                 <div className="flex gap-1 items-center">
-                                    <input className="p-2 rounded-sm border" placeholder="Name..." value={title} onChange={(e) => setTitle(e.target.value)} />
-                                    <input className="p-2 rounded-sm border" placeholder="Description..." value={content} onChange={(e) => setContent(e.target.value)} />
+                                    <div style={{ backgroundColor: content }} className="rounded-full">
+                                        <input
+                                            className="w-10 h-10 cursor-pointer appearance rounded-2xl"
+                                            placeholder="Color... "
+                                            value={content}
+                                            onChange={(e) => setContent(e.target.value)}
+                                            type='color'
+                                        />
+                                    </div>
 
+                                    <input className="p-2 rounded-sm border" placeholder="Label..." value={title} onChange={(e) => setTitle(e.target.value)} />
                                 </div>
 
                                 <button type="submit" className="cursor-pointer login-btn bg-[#002d74] rounded-xl text-white py-2 text-white duration-300">{isAdd ? 'Add' : 'Edit'}</button>
@@ -263,7 +246,7 @@ function Categories() {
                                     Name
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Description
+                                    Color
                                 </th>
                                 <th scope="col" className="px-6 py-3 w-[300px]">
                                     Action
@@ -287,7 +270,7 @@ function Categories() {
                                                 style={{ backgroundColor: post.color }}
                                                 title="Klik untuk ubah warna"
                                             ></div>
-                                            <span>{post.description}</span>
+                                            <span>{post.color}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
@@ -340,4 +323,4 @@ function Categories() {
     );
 }
 
-export default Categories;
+export default Labels;

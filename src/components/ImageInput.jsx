@@ -14,7 +14,7 @@ function ImageInput() {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: "image/*",
+        accept: { 'image/*': [] },   // ✅ format baru yang benar
         multiple: false,
     });
 
@@ -30,7 +30,7 @@ function ImageInput() {
                 {...getRootProps()}
                 className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer ${isDragActive ? "bg-green-100" : "bg-gray-50"
                     }`}>
-                        
+
                 <input {...getInputProps()} />
                 {isDragActive ? (
                     <p>Letakkan gambar di sini ...</p>

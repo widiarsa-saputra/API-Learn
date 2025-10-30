@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function logoutUser() {
+export async function logout() {
     const token = `Bearer ${localStorage.getItem("token")}`;
 
     

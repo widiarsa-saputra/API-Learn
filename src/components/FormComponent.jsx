@@ -24,7 +24,8 @@ function FormComponent({ onSubmit, title, reps, sec }) {
         setHideRepsPassword((prev) => !prev);
     }
 
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault();
         setIsSubmit(true);
         onSubmit({
             email, password
@@ -107,7 +108,9 @@ function FormComponent({ onSubmit, title, reps, sec }) {
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-lg w-lg">
+        <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-xl shadow-lg w-lg">
             <div className="border-b-1 border-[#e0e0e0] p-6 flex items-center justify-between">
                 <h2 className="font-bold text-3xl tracking-widest text-[#002d74]">{title}</h2>
                 <button
@@ -192,9 +195,9 @@ function FormComponent({ onSubmit, title, reps, sec }) {
                 )}
 
                 <button
+                    type="submit"
                     className={`login-btn ${isSubmit ? "active" : ''} bg-[#002d74] rounded-xl text-white py-2 duration-300 h-12
                         ${!validEmail || !validPassword ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
-                    onClick={handleSubmit}
                     disabled={!validEmail || !validPassword}
                 >
                     <div className="flex items-center justify-center w-full rounded-lg">
@@ -202,7 +205,7 @@ function FormComponent({ onSubmit, title, reps, sec }) {
                     </div>
                 </button>
             </div>
-        </div>
+        </form>
     );
 }
 
