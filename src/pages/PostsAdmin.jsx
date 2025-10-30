@@ -38,6 +38,7 @@ function PostsAdmin() {
     const [isSubmit, setIsSubmit] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
     const [catPosts, setCatPosts] = useState('');
+    const [indexData, setIndexData] = useState(0);
 
     useEffect(() => {
         async function getData() {
@@ -51,6 +52,7 @@ function PostsAdmin() {
                 const response = await getPosts(params);
 
                 setPosts(response);
+                setIndexData(response.pagination.from);
             } catch (err) {
                 console.error('Get Posts Error: ', err)
             }
@@ -133,13 +135,7 @@ function PostsAdmin() {
     }
 
     function handleImageChange(data) {
-        // console.log({
-        //     test: data.file
-        // });
         setSelectedImage(data.file);
-        console.log({
-            image: data.file
-        })
         setIsImgChange(data.change);
     }
 
@@ -198,8 +194,9 @@ function PostsAdmin() {
     }
 
 
-    return (posts && (
+    return (
         <>
+            <NavBar />
             {isDelete && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                     <LoadingComponent className='w-20 h-20' isLoading={isDelete} />
@@ -224,7 +221,6 @@ function PostsAdmin() {
                     title={title}
                 />
                 : ''}
-            <NavBar />
             <section className="bg-gray-100 min-h-screen flex p-20 pt-30 flex flex-col text-[#1b1b32]">
                 <h2 className="font-bold text-5xl tracking-widest">Posts Admin</h2>
                 <div className="flex mt-5">
@@ -284,7 +280,7 @@ function PostsAdmin() {
                     </div>
                     {posts?.data.map((post, index) =>
                         <div key={post.id} className="grid grid-cols-[0.5fr_1fr_2fr_4fr_1fr_1fr] text-center">
-                            <p className="py-4">{index}</p>
+                            <p className="py-4">{indexData + index}</p>
                             <div className="py-4 flex justify-center">
                                 <img
                                     src={`${post.image_url}`}
@@ -344,7 +340,7 @@ function PostsAdmin() {
                 </div>
             </section>
         </>
-    ));
+    );
 }
 
 export default PostsAdmin;

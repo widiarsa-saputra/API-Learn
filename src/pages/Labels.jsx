@@ -167,6 +167,7 @@ function Labels() {
 
     return (
         <>
+            <NavBar />
             {showImage
                 ? <ImageModal
                     url={imgUrl}
@@ -174,7 +175,6 @@ function Labels() {
                     title={title}
                 />
                 : ''}
-            <NavBar />
             <section className="bg-gray-100 min-h-screen flex p-20 pt-30 flex flex-col text-[#1b1b32]">
                 <h2 className="font-bold text-5xl tracking-widest">Labels</h2>
                 <div className="flex mt-5">

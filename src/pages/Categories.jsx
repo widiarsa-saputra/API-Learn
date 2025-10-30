@@ -166,6 +166,7 @@ function Categories() {
 
     return (
         <>
+            <NavBar />
             {showImage
                 ? <ImageModal
                     url={imgUrl}
@@ -173,18 +174,13 @@ function Categories() {
                     title={title}
                 />
                 : ''}
-            <NavBar />
             <section className="bg-gray-100 min-h-screen flex p-20 pt-30 flex flex-col text-[#1b1b32]">
-                <h2 className="font-bold text-5xl tracking-widest">Labels</h2>
+                <h2 className="font-bold text-5xl tracking-widest">Category</h2>
                 <div className="flex mt-5">
                     <p className="text-sm mt-4 w-3/4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, sequi fugit. Sit molestias repellat, iusto autem laborum harum quibusdam vitae?</p>
                     <div className="flex justify-end gap-4 w-1/4">
                         <button
                             className="cursor-pointer text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2 md:px-5 md:py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={addToggle}>Add Label</button>
-                        <button className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 text-sm px-3 py-2 md:px-5 md:py-2.5"
-                            onClick={() => setModal(true)}>Log out</button>
-                        <button className="cursor-pointer text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 text-sm px-3 py-2 md:px-5 md:py-2.5"
-                            onClick={() => navigate('/posts')}>Posts</button>
                     </div>
                 </div>
                 <div className="flex justify-center mt-5">
@@ -203,33 +199,6 @@ function Categories() {
                         </form>
                         : null}
                 </div>
-
-                {/* <div className="flex flex-wrap justify-between gap-2 border gap-y-10">
-                    {posts?.data.map((post) =>
-                        <div key={post.id} className="border p-2 h-100 w-100">
-                            <div className="flex items-center justify-center h-80 bg-[#1b1b32] rounded-lg overflow-hidden ">
-                                <img
-                                    src={`${post.image_url}`}
-                                    className="object-contain max-h-full"
-                                    onClick={() => navigate(`/posts/${post.id}`)}
-                                />
-                            </div>
-                            <p className="text-gray-500 text-right">
-                                {new Date(post.updated_at).toLocaleDateString('en-US', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric'
-                                })}
-                            </p>
-                            <h3 className="post-title" onClick={() => navigate(`/posts/${post.id}`)}>{post.title}</h3>
-                            <p className="post-content">{post.contimage_urlent}</p>
-                            <div className="ctn">
-                                <button className="edit-btn" onClick={() => currentEdit(post.id)}>edit</button>
-                                <button className="delete-btn" onClick={() => deletePost(post.id)}>delete</button>
-                            </div>
-                        </div>
-                    )}
-                </div> */}
                 <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

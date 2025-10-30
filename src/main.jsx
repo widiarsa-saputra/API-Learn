@@ -10,6 +10,7 @@ import PostDetail from './PostDetail.jsx';
 import UserPage from './UserPage.jsx'
 import Labels from './pages/Labels.jsx'
 import Categories from './pages/Categories.jsx'
+import Profile from './pages/Profile.jsx'
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '/category',
     element: <Categories />
+  },
+  {
+    path: '/profile',
+    element: <Profile />
   },
   {
     path: '/labels',

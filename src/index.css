@@ -27,3 +27,7 @@
     background-position: left center;
     color: #f2f2f2;
 }
+
+button:hover {
+    cursor: pointer;
+}

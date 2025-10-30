@@ -11,14 +11,13 @@ function Login({ onLoginSuccess }) {
 
     async function postUserAccount(form) {
         try {
-            console.log({form})
-            const res = await login(form);
-            console.log({ res });
-
+            const res = await login(form);        
             setModal(true);
             setData(res);
-            onLoginSuccess(res);
+            onLoginSuccess(res.token);
         } catch (err) {
+            setData(err);
+            setModal(true);
             setData(err.response.data);
         }
     }
