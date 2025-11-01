@@ -39,6 +39,7 @@ function PostsAdmin() {
     const [isDelete, setIsDelete] = useState(false);
     const [catPosts, setCatPosts] = useState('');
     const [indexData, setIndexData] = useState(0);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         async function getData() {
@@ -47,7 +48,8 @@ function PostsAdmin() {
                     paginate: selected,
                     page,
                     include: 'category',
-                    ...(catPosts ? { 'filter[category_id]': catPosts } : {})
+                    ...(catPosts ? { 'filter[category_id]': catPosts } : {}),
+                    search: search
                 }
                 const response = await getPosts(params);
 
@@ -58,7 +60,7 @@ function PostsAdmin() {
             }
         }
         getData();
-    }, [page, selected, data, catPosts])
+    }, [page, selected, data, catPosts, search])
 
     async function addData() {
         try {
@@ -230,6 +232,13 @@ function PostsAdmin() {
                             className="cursor-pointer text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2 md:px-5 md:py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={addToggle}>Add Post</button>
                     </div>
                 </div>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className="border w-md px-4 py-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded px-3 py-2 outline-none"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
                 <div className="flex justify-center mt-5">
                     {isAdd || isEdit
                         ? <form className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center " onSubmit={handleSubmit}>
